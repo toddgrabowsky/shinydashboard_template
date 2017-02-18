@@ -24,11 +24,11 @@ shinyServer(function(input, output, session) {
   output$sideTabs <- renderUI({
     # loop through apps folder and pull in ui.R code for each individual app
     tabs <- lapply(apps, function(app) {
-      tabItem( tabName=app, source(file.path("apps", app, "ui.R"), local=TRUE, echo=FALSE)[1] )
+      tabItem( tabName=app, source(file.path("apps", app, "ui.R"), local=TRUE, echo=FALSE)$value )
     })
     
     # add the dashboard.R code as the first tabItem in tabItems
-    dashTab <- tabItem( tabName = "dashboard", source("apps/dashboard.R", local=TRUE)[1] )
+    dashTab <- tabItem( tabName = "dashboard", source("apps/dashboard.R", local=TRUE)$value )
     tabs <- list(dashTab, tabs)
     
     tagAppendChild(tabItems(), tabs)
